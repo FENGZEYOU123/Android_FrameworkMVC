@@ -13,6 +13,7 @@ import com.yfz.mvc.model.StudentModel;
  * Author: 游丰泽
  * Time: 9999/01/01
  * Describe: 探究MVC架构设计
+ * Github: https://blog.csdn.net/ruiruiddd/article/details/117990466
  */
 public class MainActivity extends AppCompatActivity {
     private Button vBtnDelete,vBtnAdd;
