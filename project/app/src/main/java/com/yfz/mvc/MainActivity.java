@@ -37,26 +37,32 @@ public class MainActivity extends AppCompatActivity {
         vTvStudentInfo = findViewById(R.id.vTvStudentInfo);
     }
     private void addListener(){
-        //添加学生按钮，点击后，将事件传给Controller层进行处理
+        //监听 添加按钮 的点击事件
         vBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //随机一个id,性别,姓名
                 int max=100,min=1;
                 int id = (int) (Math.random()*(max-min)+min);
-                //添加一个学生对象
+                //new一个学生对象，并将响应用户的点击事件与所要处理的信息一并交给Controller层进行处理
                 studentController.addStudent(new StudentBean("张三-"+id ,id,id<=50?StudentBean.Gender.男:StudentBean.Gender.女));
             }
         });
+        //监听 删除按钮 的点击事件
         vBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //将响应用户的删除点击事件与所要处理的信息一并交给Controller层进行处理
                 studentController.removeStudent(studentModel.getStudentAmount()-1);
             }
         });
     }
     /**
-     * activity将添加用户的操作发给controller，controller发给model，model对数据处理完毕后，再通知activity更新UI
+     * activity向C层提供更新View层UI的方法
+     *
+     * activity将添加用户的操作发给controller层，controller层发给model层。
+     * 待Model层对数据处理完毕后，应该是要直接更新View层，但是在Android里的UI更新需要经过activity。
+     * 所以我们在activity向C层提供更新View的方法，让C层调它就行。
      */
     public void updateViewUi_studentAmount(){
         if(null != vTvTotalPeopleAmount){
