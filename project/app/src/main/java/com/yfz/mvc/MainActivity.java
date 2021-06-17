@@ -1,7 +1,6 @@
 package com.yfz.mvc;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +9,11 @@ import com.yfz.mvc.Bean.StudentBean;
 import com.yfz.mvc.controller.StudentController;
 import com.yfz.mvc.model.StudentModel;
 
+/**
+ * Author: 游丰泽
+ * Time: 9999/01/01
+ * Describe: 探究MVC架构设计
+ */
 public class MainActivity extends AppCompatActivity {
     private Button vBtnDelete,vBtnAdd;
     private TextView vTvTotalPeopleAmount, vTvStudentInfo;
