@@ -37,7 +37,7 @@ public class StudentModel {
     }
     //删除学生对象
     public void removeStudent(int index){
-        if(null != mStudentList && index>=0){
+        if(null != mStudentList && index>=0 && mStudentList.size()>0){
             String studentName = "删除：学生: "+mStudentList.get(index).getName() +" 性别: "+mStudentList.get(index).getGender() +" 学号："+mStudentList.get(index).getId();
             mStudentList.remove(index);
             //把数据处理结束的消息，发送到所有实现的接口
