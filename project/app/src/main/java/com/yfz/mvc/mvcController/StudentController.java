@@ -1,13 +1,13 @@
-package com.yfz.mvc.controller;
+package com.yfz.mvc.mvcController;
 
-import com.yfz.mvc.Bean.StudentBean;
-import com.yfz.mvc.MainActivity;
-import com.yfz.mvc.model.StudentModel;
-import com.yfz.mvc.notification.OnUpdateViewListener;
+import com.yfz.mvc.studentBean.StudentBean;
+import com.yfz.mvc.mvcView.activity.MainActivity;
+import com.yfz.mvc.mvcModel.StudentModel;
+import com.yfz.mvc.mvcModel.StudentModelListener;
 
 import java.util.List;
 
-public class StudentController implements OnUpdateViewListener{
+public class StudentController implements StudentModelListener {
     private static volatile StudentController mInstance = null;
     public StudentController(){}
     //创建M层实例

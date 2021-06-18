@@ -1,4 +1,4 @@
-package com.yfz.mvc.Bean;
+package com.yfz.mvc.studentBean;
 
 public class StudentBean {
     //学生名字

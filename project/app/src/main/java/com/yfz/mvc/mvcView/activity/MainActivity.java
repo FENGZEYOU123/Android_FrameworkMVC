@@ -1,14 +1,13 @@
-package com.yfz.mvc;
+package com.yfz.mvc.mvcView.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import com.yfz.mvc.Bean.StudentBean;
-import com.yfz.mvc.controller.StudentController;
-import com.yfz.mvc.model.StudentModel;
-import com.yfz.mvc.notification.OnUpdateViewListener;
+import com.yfz.mvc.studentBean.StudentBean;
+import com.yfz.mvc.R;
+import com.yfz.mvc.mvcController.StudentController;
 
 /**
  * Author: 游丰泽

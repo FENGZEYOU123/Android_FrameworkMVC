@@ -1,21 +1,21 @@
-package com.yfz.mvc.model;
+package com.yfz.mvc.mvcModel;
 
-import com.yfz.mvc.Bean.StudentBean;
-import com.yfz.mvc.notification.OnUpdateViewListener;
+import com.yfz.mvc.studentBean.StudentBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentModel {
     //list储存所有实现的接口
-    private List<OnUpdateViewListener> mListenerList = new ArrayList<>();
+    private List<StudentModelListener> mListenerList = new ArrayList<>();
     //学生对象list
     private List<StudentBean> mStudentList = new ArrayList<>();
     /**
      * 添加接口
      */
-    public void addOnUpdateViewListener(OnUpdateViewListener onUpdateViewListener){
-        if(!mListenerList.contains(onUpdateViewListener)){
-            mListenerList.add(onUpdateViewListener);
+    public void addOnUpdateViewListener(StudentModelListener studentModelListener){
+        if(!mListenerList.contains(studentModelListener)){
+            mListenerList.add(studentModelListener);
         }
     }
     /**
@@ -29,7 +29,7 @@ public class StudentModel {
             if(!mStudentList.contains( studentBean )) {
                 mStudentList.add(studentBean);
                 //把数据处理结束的消息，发送到所有实现的接口
-                for(OnUpdateViewListener listener: mListenerList){
+                for(StudentModelListener listener: mListenerList){
                     listener.OnModelAddStudentCompleted(mStudentList,studentBean);
                 }
             }
@@ -41,7 +41,7 @@ public class StudentModel {
             String studentName = "删除：学生: "+mStudentList.get(index).getName() +" 性别: "+mStudentList.get(index).getGender() +" 学号："+mStudentList.get(index).getId();
             mStudentList.remove(index);
             //把数据处理结束的消息，发送到所有实现的接口
-            for(OnUpdateViewListener listener: mListenerList){
+            for(StudentModelListener listener: mListenerList){
                 listener.OnModelRemoveStudentCompleted(mStudentList,studentName);
             }
         }
