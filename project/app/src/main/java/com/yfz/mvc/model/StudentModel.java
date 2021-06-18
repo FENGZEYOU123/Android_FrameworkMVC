@@ -1,38 +1,22 @@
 package com.yfz.mvc.model;
 
 import com.yfz.mvc.Bean.StudentBean;
-import com.yfz.mvc.MainActivity;
 import com.yfz.mvc.notification.OnUpdateViewListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentModel {
-    private static volatile StudentModel mInstance = null;
-    public StudentModel(){}
-    //通知view更新UI接口
-    private OnUpdateViewListener mOnUpdateViewListener = null;
+    //list储存所有实现的接口
+    private List<OnUpdateViewListener> mListenerList = new ArrayList<>();
     //学生对象list
     private List<StudentBean> mStudentList = new ArrayList<>();
-    //MainActivity
-    private MainActivity mainActivity = null;
-    //DCL
-    public static StudentModel getInstance(){
-        if(mInstance == null){
-            synchronized (StudentModel.class){
-                if(mInstance == null){
-                    mInstance = new StudentModel();
-                }
-            }
-        }
-        return mInstance;
-    }
-
     /**
      * 添加接口
      */
     public void addOnUpdateViewListener(OnUpdateViewListener onUpdateViewListener){
-        mOnUpdateViewListener = onUpdateViewListener;
+        if(!mListenerList.contains(onUpdateViewListener)){
+            mListenerList.add(onUpdateViewListener);
+        }
     }
     /**
      * 添加学生方法
@@ -44,8 +28,9 @@ public class StudentModel {
         if(null != mStudentList && null != studentBean){
             if(!mStudentList.contains( studentBean )) {
                 mStudentList.add(studentBean);
-                if(null != mOnUpdateViewListener){
-                    mOnUpdateViewListener.addStudent(studentBean);
+                //把数据处理结束的消息，发送到所有实现的接口
+                for(OnUpdateViewListener listener: mListenerList){
+                    listener.OnModelAddStudentCompleted(mStudentList,studentBean);
                 }
             }
         }
@@ -55,19 +40,11 @@ public class StudentModel {
         if(null != mStudentList && index>=0){
             String studentName = "删除：学生: "+mStudentList.get(index).getName() +" 性别: "+mStudentList.get(index).getGender() +" 学号："+mStudentList.get(index).getId();
             mStudentList.remove(index);
-            if(null != mOnUpdateViewListener){
-                mOnUpdateViewListener.removeStudent(studentName);
+            //把数据处理结束的消息，发送到所有实现的接口
+            for(OnUpdateViewListener listener: mListenerList){
+                listener.OnModelRemoveStudentCompleted(mStudentList,studentName);
             }
         }
     }
-    /**
-     * 返回当前学生总人数
-     */
-    public int getStudentAmount(){
-        int amount = 0;
-        if(null != mStudentList){
-            amount = mStudentList.size();
-        }
-        return amount;
-    }
+
 }

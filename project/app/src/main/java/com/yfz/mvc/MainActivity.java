@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.yfz.mvc.Bean.StudentBean;
 import com.yfz.mvc.controller.StudentController;
 import com.yfz.mvc.model.StudentModel;
+import com.yfz.mvc.notification.OnUpdateViewListener;
 
 /**
  * Author: 游丰泽
@@ -20,16 +21,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView vTvTotalPeopleAmount, vTvStudentInfo;
     //Controller层
     private StudentController studentController = StudentController.getInstance();
-    //Model层
-    private StudentModel studentModel = StudentModel.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        studentController.setMainActivity(this);
         initial();
         addListener();
+        studentController.setMainActivity(this);
     }
     private void initial(){
         vBtnDelete = findViewById(R.id.vBtnDelete);
@@ -54,34 +53,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //将响应用户的删除点击事件与所要处理的信息一并交给Controller层进行处理
-                studentController.removeStudent(studentModel.getStudentAmount()-1);
+                studentController.removeStudent(0);
             }
         });
     }
-    /**
-     * activity向C层提供更新View层UI的方法
-     *
-     * activity将添加用户的操作发给controller层，controller层发给model层。
-     * 待Model层对数据处理完毕后，应该是要直接更新View层，但是在Android里的UI更新需要经过activity。
-     * 所以我们在activity向C层提供更新View的方法，让C层调它就行。
-     */
-    public void updateViewUi_studentAmount(){
+
+    //提供更新UI的方法
+    public void updateViewUi_studentAmount(int studentAmount){
         if(null != vTvTotalPeopleAmount){
-            vTvTotalPeopleAmount.setText(" "+studentModel.getStudentAmount());
+            vTvTotalPeopleAmount.setText(""+studentAmount);
         }
     }
+    //提供更新UI的方法
     public void updateViewUi_addedStudent(StudentBean studentBean){
         if(null != vTvStudentInfo){
             vTvStudentInfo.setText(
                     "被添加的学生信息:"+
-                    "\n名字："+studentBean.getName()+
-                    "\n学号: "+studentBean.getId()+
-                    "\n性别: "+studentBean.getGender());
+                            "\n名字："+studentBean.getName()+
+                            "\n学号: "+studentBean.getId()+
+                            "\n性别: "+studentBean.getGender());
         }
     }
+    //提供更新UI的方法
     public void updateViewUi_removeStudent(String studentName){
         if(null != vTvStudentInfo){
             vTvStudentInfo.setText(studentName);
         }
     }
+
 }
