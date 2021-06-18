@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".mvcView.activity.MainActivity">
     <Button
         android:id="@+id/vBtnDelete"
         android:text="删除同学"
